@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.7.5)  5 JUL 2018 22:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.7.5)  6 JUL 2018 13:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -277,10 +277,10 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
 
 LaTeX Warning: Unused global option(s):
-    [fontsize=10pt].
+    [fontsize=11pt].
 
 (./dz1.aux
-LaTeX Font Info:    Try loading font information for T2A+cmr on input line 3.
+LaTeX Font Info:    Try loading font information for T2A+cmr on input line 4.
  (/usr/share/texlive/texmf-dist/tex/latex/cyrillic/t2acmr.fd
 File: t2acmr.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
 ))
