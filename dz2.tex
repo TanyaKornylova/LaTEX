@@ -1,0 +1,146 @@
+\documentclass[a4paper, fontsize=10pt, oneside]{article}
+\usepackage[T2A]{fontenc}
+\usepackage[warn]{mathtext}          % кирилиця в формулах, с предупреждением
+\usepackage[utf8x]{inputenc}         % кодовая страница документа
+\usepackage[ukrainian, english]{babel} % локализация и переносы
+\usepackage{misccorr}      % точка в номерах заголовков
+\usepackage{paralist}      % Списки с отступом только в первой строчке
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\newlist{Aenumerate}{enumerate}{1}
+\setlist[Aenumerate]{label=\arabic*.}
+\usepackage[left=2.5cm,right=2cm,bindingoffset=0cm]{geometry}
+\pagestyle{empty}
+\usepackage{setspace}
+
+% полуторный интервал
+\onehalfspacing
+
+\begin{document}
+
+	\chapter{\Large \bf 7. Прогнозування динаміки за трендовими моделями}	
+
+	Прогнозування економічних показників за трендовими моделями засновано на ідеї екстраполяції. Тобто вважається, що вія зв'язків і закономірностей, діючих в сучасному періоді, розповсюджується і на наступні періоди. Застосування екстраполяції доцільне при виконанні таких умов:
+		\begin{itemize}
+		\item{початковий часовий ряд повинен бути довгим;}
+		\item{часовий ряд не повинен мати стрибків і тенденція ряду описується плавною кривою;}
+		\item{екстраполяція за допомогою кривих тренду дасть прийнятні результати, якщо границя насичення буде визначена досить точно.}
+		\end{itemize}
+		
+		Прогноз на основі трендових моделей включає в собі два моменти: визначення точкового і інтервального прогнозів.
+		
+		Точковий прогноз - це прогноз, що отримується підкладанням у рівняння тенденції величини часу $t$, що відповідає відповідному періоду випередження: $t = n+1, n+2, \dots$\newline
+		Зрозуміло, що співпадіння фактичних даних в майбутньому і прогнознох точкових малоймовірне. Тому доводиться розраховувати нижню і верхню межі зміни прогнозної величини. Цей інтервал називають прогнозним інтервалом. Більш точно: прогнозний інтервал -- це інтервал з випадковими межами, в якому з ймовірністю $(1 - \alpha) 100\%$ можно очікувати фактичне значення прогнозного показника.
+		
+		Розрахунок прогнозних інтервалів при прогнозіванні за допомогою трендових моделей спирається на формули теорії регресій. Але слід пам'ятати, що динамічні ряди відрізняються від статистичних сукупностей і тому необхідно обережно підходити до оцінки прогнозних інтервалів.
+		
+		Далі розглянемо різні види трендових моделей оцінки їх параметрів і вкажемо на алгоритми розрахунків прогнозних інтервалів.
+		
+		\section{Лінійний тренд}
+		У цьому випадку функція тенденції має вигляд 
+		\begin{equation*}
+		y_t = a_0 + a_1 t.
+		\end{equation*}		
+		
+		Розрахунок параметрів $a_0$ і $a_1$ здійснюється методом найменших квадратів, який дає таку систему рівнянь для розрахунку цих параметрів:
+		\begin{equation*}
+		a_0 n + a_1 \sum_{t=1}^n t = \sum_{t=1}^n y_t,
+		\end{equation*}
+		\begin{equation*}
+		a_0 \sum_{t=1}^n t + a_1 \sum_{t=1}^n t^2 = \sum_{t=1}^n t \cdot y_t
+\end{equation*}
+
+		У випадку лінійного тренду межі прогнозного інтервалу мають вигляд:
+		\begin{equation*}
+		\text{H.M.: } \hat y_{n+L} - t (\alpha, n-2) \cdot S_{\hat y} \sqrt{1 + \frac{1}{n} + \frac{1}{\sum t^2} t_L^2} 
+		\end{equation*}						
+		\begin{equation*}
+		\text{B.M.: } \hat y_{n+L} + t (\alpha, n-2) \cdot S_{\hat y} \sqrt{1 + \frac{1}{n} + \frac{1}{\sum t^2} t_L^2}
+		\end{equation*}
+		де $L$ -- період випередження, $\hat y_{n+L}$ -- точковий прогноз за трендовою моделлю в момент $(n+L),$ $n$ -- кількість спостережень в часовому ряді, $S_{\hat y} = \sqrt{\frac{\sum (y_t - \hat y_t)^2}{n-2}},$ $t(\alpha, n-2)$ -- табличне значення критерія Стюдента для рівня значущості $\alpha$ і кількість ступенів свободи -- $(n-2),$ $\hat y_t$ -- розраховані за лінійною функцією.
+		
+		Для різних значень $n, \alpha$ і $L$ є таблиці, в яких протабульовано вираз $K^* = t(\alpha, n-2) \sqrt{1 + \frac{1}{n} + \frac{1}{\sum t^2} t_L^2}.$ Тоді межі прогноного інтервалу будуть такі:
+	\begin{equation*}
+		\text{H.M.: } \hat y_{n+L} - S_{\hat y} \cdot K^*,
+	\end{equation*}		
+	\begin{equation*}
+		\text{B.M.: } \hat y_{n+L} + S_{\hat y} \cdot K^*.
+	\end{equation*}
+	\section{Многочлен другого ступеня}
+	Функція тенденції має вигляд: $y_t = a_0 + a_1 t + a_2 t^2.$
+	
+	Система рівнянь для визначення параметрів $a_0, a_1$ і $a_2$ має вигляд:
+	\begin{equation*}
+		a_0 n + a_1 \sum_{t=1}^n t + a_2 \sum_{t=1}^n t^2 = \sum_{t=1}^n y_t,
+	\end{equation*}
+	\begin{equation*}
+		a_0 \sum_{t=1}^n t + a_1 \sum_{t=1}^n t^2  + a_2 \sum_{t=1}^n t^3 = \sum_{t=1}^n t \cdot y_t,
+	\end{equation*}	
+	\begin{equation*}
+		a_0 \sum_{t=1}^n t^2 + a_1 \sum_{t=1}^n t^3 + a_2 \sum_{t=1}^n t^4 = \sum_{t=1}^n t^2 y_t.
+	\end{equation*}
+	
+	Прогнозний інтервал має такі межі:
+	\begin{equation*}
+		\text{H.M.: } \hat y_{n+L} - t(\alpha; n-3) S_{\hat y} \sqrt{1 + \frac{t_L^2}{\sum_{t=1}^n t^2} + \frac{\sum_{t=1}^n t^4 - 2 t^2_L \sum_{t=1}^n t^2 + n t_L^4}{n \sum_{t=1}^n t^4 - (\sum_{t=1}^n t^2)^2}},
+	\end{equation*}
+	\begin{equation*}
+		\text{B.M.: } \hat y_{n+L} + t(\alpha; n-3) S_{\hat y} \sqrt{1 + \frac{t_L^2}{\sum_{t=1}^n t^2} + \frac{\sum_{t=1}^n t^4 - 2 t^2_L \sum_{t=1}^n t^2 + n t_L^4}{n \sum_{t=1}^n t^4 - (\sum_{t=1}^n t^2)^2}},
+	\end{equation*}
+	де $S_{\hat y}$ розраховується так як і для лінійного тренду, тільки у знаменнику кількість відностей - $(n-3).$
+	
+	Позначимо вираз
+	\begin{equation*}
+		t(\alpha; n-3) \sqrt{1 + \dots + \frac{t_L^2}{\sum_{t=1}^n t^2} + \frac{\sum_{t=1}^n t^4 - 2 t^2_L \sum_{t=1}^n t^2 + n t_L^n}{n \sum_{t=1}^n t^4 - (\sum_{t=1}^n t^2)^2}}
+	\end{equation*}
+	через $K^*.$ Існують таблиці табульованих значень $K^*$ для різних $n, \alpha$ і $L.$ Тоді прогнозний інтервал має вигляд:
+	\begin{equation*}
+		\text{H.M.: } \hat y_{n+L} - S_{\hat y} \cdot K^*,
+	\end{equation*}
+	\begin{equation*}
+		\text{B.M.: } \hat y_{n+L} + S_{\hat y} \cdot K^*.
+	\end{equation*}
+	
+	\section{Многочлен третього ступеня}
+	
+	Функція тенденція має вигляд: $y = a_0 + a_1 t + a_2 t^2 + a_3 t^3.$
+	
+	Для визначення параметрів $a_0, a_1, a_2$ і $a_3$ маємо таку систему рівнянь:
+	\begin{equation*}
+		a_0 n + a_1 \sum_{t=1}^n t + a_2 \sum_{t=1}^n t^2 + a_3 \sum_{t=1}^n t^3 = \sum_{t=1}^n y_t,
+	\end{equation*}
+	\begin{equation*}
+		a_0 \sum_{t=1}^n t + a_1 \sum_{t=1}^n t^2 + a_2 \sum_{t=1}^n t^3 + a_3 \sum_{t=1}^n t^4 = \sum_{t=1}^n t y_t,
+	\end{equation*}
+	\begin{equation*}
+		a_0 \sum_{t=1}^n t^2 + a_1 \sum_{t=1}^n t^3 + a_2 \sum_{t=1}^n t^4 + a_3 \sum_{t=1}^n t^5 = \sum_{t=1}^n t^2 y_t,
+	\end{equation*}
+	\begin{equation*}
+		a_0 \sum_{t=1}^n t^3 + a_1 \sum_{t=1}^n t^4 + a_2 \sum_{t=1}^n t^5 + a_3 \sum_{t=1}^n t^6 = \sum_{t=1}^n t^3 y_t.
+	\end{equation*}
+	
+	Межі прогнозного інтервалу такі:
+	\begin{equation*}
+		\text{H.M.: } \hat y_{n+L} -t(\alpha; n-4) S_{\hat y} \sqrt{1 + \frac{1}{\sum_1^n t^2} t^2_L + \frac{\sum t^4 - 2 t^2_L \sum t^2 +n t^4_L}{n \sum t^4 - (\sum t^2)^2} + \frac{(\sum t^6 - 2 \sum t^4) t_L^2 + (\sum t^2) t_L^6}{\sum t^2 \sum t^6 - (\sum t^4)^2}},
+	\end{equation*}
+	\begin{equation*}
+		\text{B.M.: } \hat y_{n+L} + t(\alpha; n-4) S_{\hat y} \sqrt{1 + \frac{1}{\sum_1^n t^2} t^2_L + \frac{\sum t^4 - 2 t^2_L \sum t^2 +n t^4_L}{n \sum t^4 - (\sum t^2)^2} + \frac{(\sum t^6 - 2 \sum t^4) t_L^2 + (\sum t^2) t_L^6}{\sum t^2 \sum t^6 - (\sum t^4)^2}},
+	\end{equation*}
+	де $S_{\hat y} = \sqrt{\frac{\sum_{t=1}^n (y_t - \hat y_t)}{n-4}},$ $\hat y_t$ -- розраховані за многочленом третього ступеня.
+	
+	Позначимо вираз
+	\begin{equation*}
+		t(\alpha; n-4) \sqrt{1 + \frac{1}{\sum t^2} t^2_L + \frac{\sum t^4 - 2 t^2_L \sum t^2 +n t^4_L}{n \sum t^4 - (\sum t^2)^2} + \frac{(\sum t^6 - 2 \sum t^4) t_L^2 + (\sum t^2) t_L^6}{\sum t^2 \sum t^6 - (\sum t^4)^2}}
+	\end{equation*}
+	через $K^*.$
+	
+	Існує таблиця табульованих значень $K^*$ для різних $n, \alpha$ і $L.$ Тоді прогнозний інтервал буде таким:
+	\begin{equation*}
+		\text{H.M.: } \hat y_{n+L} - S_{\hat y} \cdot K^*,
+	\end{equation*}
+	\begin{equation*}
+		\text{B.M.: } \hat y_{n+L} + S_{\hat y} \cdot K^*.
+	\end{equation*}
+\end{document}
