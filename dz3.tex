@@ -1,0 +1,157 @@
+\documentclass[serif,12pt,unicode]{beamer}
+\usepackage[utf8x]{inputenc}         % кодовая страница документа
+\usepackage[T2A]{fontenc}
+\usepackage[english, ukrainian]{babel} % локализация и переносы
+\usetheme{AnnArbor}
+\usecolortheme{rose}
+
+\begin{document}
+\begin{frame}
+\frametitle{Повна проблема власних значень симетричних матриць}
+Виконала: студентка 3 курса
+
+спеціальності "Прикладна математика"
+
+Корнилова Тетяна Юріївна
+
+Науковий керівник:
+Таірова Марія Сергіївна
+\end{frame}
+\begin{frame}{Зміст}
+ \tableofcontents
+\end{frame}
+
+\begin{frame}
+\section{Основні відомості про власні значення}
+\frametitle{Основні відомості про власні значення}
+Означення.
+Комплексне число $\lambda \in \mathbb{C}$ називаеться власним значенням матриці $A$, якщо існує ненульовий вектор $\vec x =(x_1, x_2, \dots, x_n)$ з комплексними компонентами $x_i \in \mathbb{C}$, що задоволняє рівнянню
+\begin{equation}\label{eq:1}
+A \vec x = \lambda \vec x,
+\end{equation}
+вектор $x$ будемо власним вектором матриці $A$, що відповідає власному значенню $\lambda$.
+\end{frame}
+\begin{frame}{Основні відомості про власні значення}
+Теорема Гершгоріна: усі власні значення матриці $A$ лежать в об'єднанні кіл $S_1, S_2, \dots, S_n,$ де 
+\begin{equation*}S_i = {z \in \mathbb{C}: |z - a_{ii}| \leq r_i, r_i = \sum_{j=1, j \not= i}^n |a_{ij}|}\end{equation*} 
+- сума модулів внедіагональних елементів $i$-ої строки матриці $A;$ якщо $k$ кругів утворюють замкнену область, ізольовану від інших кіл, то в цій області знаходиться рівно $k$ власних значень з урахуванням їх кратності.
+
+\end{frame}
+\section{Методи обертань}
+\begin{frame}{Матриці обертань}
+	В тривимірному просторі можна говорити про обертання в площнах $(x, y), (x, z),$ и $(y, z),$ тобто про обертання на кут $\phi$ навколо вісей $Z, X$ і $Y$ відповідно. Цим трьом випадкам відповідають такі матриці
+плоских обертань:
+\begin{equation*}
+    U_{xy} = \begin{pmatrix}
+        cos \phi & -sin \phi & 0\\ sin \phi & cos \phi & 0\\ 0 & 0 & 1
+\end{pmatrix}, \quad 
+U_{xz} = \begin{pmatrix}
+        cos \phi & 0 & -sin \phi\\ 0 & 1 & 0\\sin \phi &0 & cos \phi
+\end{pmatrix},
+\end{equation*} 
+\begin{equation*}
+    U_{yz} = \begin{pmatrix}
+        1 & 0 & 0\\
+        0 & cos \phi & -sin \phi\\
+        0 & sin \phi & cos \phi
+\end{pmatrix}.
+\end{equation*}
+
+\end{frame}
+\begin{frame}{Матриці обертання}
+В загальному випадку $n$-мірного векторного простору визначимо матрицю обертання $U_{i_0 j_0}$ у площині $(i_0, j_0)$ наступним чином:
+\begin{equation}\label{eq:18}
+    U_{i_0 j_0} = \begin{pmatrix}
+        1 & \quad & |  & \quad & \quad & | & \quad & \quad\\
+        \quad & \ddots  & | & \quad & \quad & | & \quad & \quad\\
+         \quad & \quad & 1 | &\quad & \quad & | & \quad  & \quad\\
+        - & - & (cos \phi) &  - & - & (-sin \phi) &  - & -\\
+        \quad & \quad & | 1 &\quad &\quad & | & \quad  & \quad\\
+        \quad & \quad & |&\quad & \ddots  & | & \quad & \quad\\
+        \quad & \quad & | &\quad & \quad & 1 |  & \quad & \quad\\
+        - & - & (sin \phi) & -  & - & (cos \phi) & - & - \\
+        \quad & \quad & | & \quad & \quad & | 1 & \quad & \quad\\
+        \quad & \quad & | &\quad & \quad & | & \ddots \\
+        \quad & \quad & | &\quad  & \quad & | & \quad  & 1\\
+\end{pmatrix}.
+\end{equation}
+\end{frame}
+\section{Метод Гівенса}
+\begin{frame}{Метод Гівенса}
+Матричне множення виду: $G^T_{ij} A G_{ij}$, 
+\begin{equation*}
+    G_{ij} = \begin{pmatrix}
+    1 & 0 & \dots & 0 & 0\\
+    0 & cos \phi & \dots & -sin \phi & 0\\
+    \dots & \dots & \dots & \dots & \dots\\
+    0 & sin \phi & \dots & cos \phi & 0\\
+    0 & 0 & 0 & 0 & 1\\
+    \end{pmatrix}
+\end{equation*}
+\end{frame}
+\section{Метод Хаусхолдера}
+\begin{frame}
+Нехай дана квадратна симетрична матриця $A$ размірності $n.$
+На кожному кроці методу, щоб сформувати матрицю Хаусхолдера необхідно визначити $\alpha$ і $r$:
+\begin{equation*}
+    \alpha = - sgn(a_{21}) \sqrt{\sum_{j=2}^n a_{j1}^1};
+\end{equation*}
+\begin{equation*}
+    r = \sqrt{\frac{1}{2} (\alpha^2 - a_{21} \alpha)};
+\end{equation*}
+
+З $\alpha$ і $r$ визначаємо вектор $v:$
+\begin{equation*}
+    v^{(1)} = \begin{bmatrix}
+        v_1\\
+        v_2\\
+        \vdots\\
+        v_n
+\end{bmatrix},
+\end{equation*}
+де $v_1 = 0, v_2 = \frac{a_{21} - \alpha}{2 r},$ и $v_k = \frac{a_{k1}}{2r}$ для кажного $k = 3, 4, \dots, n$
+\end{frame}
+\begin{frame}
+Потім вважаємо:
+\begin{equation*}
+    P^1 = I - 2 v^{(1)} (v^{(1)})^T
+\end{equation*}
+\begin{equation*}
+    A^{(2)} = P^1 A P^1
+\end{equation*}
+Отримавши матриці $A$ і $P^1$ продовжуємо процес для $k=2, 3, \dots, n-1:$
+\begin{equation*}
+    \alpha = -sgn(a^k_{k+1,k}) \sqrt{\sum_{j=k+1}^n (a_{jk}^k)^2}; \quad
+    r = \sqrt{\frac{1}{2} (\alpha^2 - a_{k+1,k}^k \alpha)};
+\end{equation*}
+\begin{equation*}
+    v_1^k = v_2^k = \dots = v_k^k = 0;\quad
+    v_{k+1}^k = \frac{a_{k+1,k}^k - \alpha}{2r}
+\end{equation*}
+\begin{equation*}
+    v_j^k = \frac{a_{jk}^k}{2r} \quad \text{для} \quad j = k+2; k+3, \dots, n
+\end{equation*}
+\begin{equation*}
+    P^k = I - 2 v^{(k)} (v^{(k)})^T; \quad
+    A^{(k+1)} = P^k A^{(k)} P^k
+\end{equation*}
+
+\end{frame}
+\section{Порівняння методів}
+\begin{frame}
+	\begin{table}
+	\caption{Порівняння методів}
+	\begin{center}
+	\begin{tabular}{|l|l|}
+		\hline
+		Метод Гівенса & Метод Хаусхолдера \\
+		\hline
+		$\frac{4}{3} n^3$ множень & $\frac{2}{3} n^3$ множень\\
+		\hline
+		$\frac{1}{2} n^2$ квадратних коренів & $n$ квадратних коренів\\
+		\hline
+	\end{tabular}
+	\end{center}
+	\end{table}
+\end{frame}
+\end{document}
